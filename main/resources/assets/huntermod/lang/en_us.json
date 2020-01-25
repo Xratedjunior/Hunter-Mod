@@ -1,0 +1,16 @@
+{
+	//Bow
+    "item.huntermod.hunter_bow": "Hunter's Bow",
+	
+	//Arrows
+	"item.huntermod.hunter_arrow": "Hunter's Arrow",
+	
+	//Entity
+	"entity.huntermod.hunter_entity": "Hunter",
+	
+	//Entity Spawn Eggs
+	"item.huntermod.hunter_spawn_egg": "Hunter Spawn Egg",
+
+	//ItemGroups
+	"itemGroup.huntermod": "Better Default Biomes"
+}
