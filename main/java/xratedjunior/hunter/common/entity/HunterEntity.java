@@ -31,6 +31,6 @@ public class HunterEntity extends HunterEntityAbstract{
 	   }
 	   
 	   public static boolean checkHunterSpawnRules(EntityType<? extends HunterEntity> type, IWorld worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
-	      return worldIn.getDifficulty() != Difficulty.PEACEFUL && worldIn.getBlockState(pos.down()).getBlock() == Blocks.GRASS_BLOCK && func_223315_a(type, worldIn, reason, pos, randomIn) && pos.getY() > worldIn.getSeaLevel();
+	      return worldIn.getDifficulty() != Difficulty.PEACEFUL && worldIn.getBlockState(pos.down()).getBlock() == Blocks.GRASS_BLOCK && func_223315_a(type, worldIn, reason, pos, randomIn) && pos.getY() >= worldIn.getSeaLevel();
 	   }
 }

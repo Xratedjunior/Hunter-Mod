@@ -13,7 +13,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import xratedjunior.hunter.api.entity.HunterModEntityTypes;
-import xratedjunior.hunter.api.entity.HunterModSpawns;
 import xratedjunior.hunter.common.entity.HunterEntity;
 import xratedjunior.hunter.core.HunterMod;
 
@@ -31,7 +30,7 @@ public class HunterModEntityRegistryHandler
 	{
 		HunterModEntityTypes.init(event);
 		EntitySpawnPlacementRegistry.register(HunterModEntityTypes.HUNTER_ENTITY, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HunterEntity::checkHunterSpawnRules);
-		HunterModSpawns.registerEntityWorldSpawns();
+		//HunterModSpawns.registerEntityWorldSpawns();
 	}
 	
 	public static <T extends IForgeRegistryEntry<T>> void register(IForgeRegistry<T> registry, String name, T object)

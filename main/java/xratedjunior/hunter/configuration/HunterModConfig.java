@@ -1,35 +1,50 @@
 package xratedjunior.hunter.configuration;
 
-import java.io.File;
-
-import com.electronwill.nightconfig.core.file.CommentedFileConfig;
-import com.electronwill.nightconfig.core.io.WritingMode;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.Logger;
 
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.fml.config.ModConfig;
+import xratedjunior.hunter.api.entity.HunterModSpawns;
 import xratedjunior.hunter.core.HunterMod;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = HunterMod.MOD_ID, bus = Bus.MOD)
 public class HunterModConfig 
 {
-	private static final ForgeConfigSpec.Builder server_builder = new ForgeConfigSpec.Builder();
-	public static final ForgeConfigSpec server_config;
-	
-	static
+	public static Logger logger = HunterMod.logger;
+
+	public static class Common
 	{
-		HunterConfig.init(server_builder);
-		//ReplaceSkeletonsConfig.init(server_builder);
 		
-		server_config = server_builder.build();
+		public Common(ForgeConfigSpec.Builder builder)
+		{	
+			HunterConfig.init(builder);
+			//ReplaceSkeletonsConfig.init(builder);
+			DebugConfig.init(builder);
+			logger.info("Built Huntermod Config");
+		}
 	}
 	
-	public static void loadConfig(ForgeConfigSpec config, String path)
-	{
-		HunterMod.logger.info("Loading config" + path);
-		final CommentedFileConfig file = CommentedFileConfig.builder(new File(path)).sync().autosave().writingMode(WritingMode.REPLACE).build();
-		HunterMod.logger.info("Built config" + path);
-		file.load();
-		HunterMod.logger.info("Loaded config" + path);
-		config.setConfig(file);
+	public static final ForgeConfigSpec COMMON_SPEC;
+	public static final Common COMMON;
+	static {
+		final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
+		COMMON_SPEC = specPair.getRight();
+		COMMON = specPair.getLeft();
 	}
+	
+    @SubscribeEvent
+    public static void onLoad(final ModConfig.Loading configEvent) {
+    	logger.info("Registering Hunter World Spawns");
+    	HunterModSpawns.registerEntityWorldSpawns();
+		logger.info("Loaded Huntermod Config");
+    }
+
+    @SubscribeEvent
+    public static void onFileChange(final ModConfig.Reloading configEvent) {
+    	//logger.info("Huntermod Config Changed");
+    }
 }

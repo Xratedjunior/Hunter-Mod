@@ -10,11 +10,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLPaths;
 import xratedjunior.hunter.client.HunterModRenderInit;
 import xratedjunior.hunter.common.entity.event.GlowingHunterEvent;
 import xratedjunior.hunter.common.world.RemoveBiomeFeatures;
-import xratedjunior.hunter.configuration.HunterConfig;
+import xratedjunior.hunter.configuration.DebugConfig;
 import xratedjunior.hunter.configuration.HunterModConfig;
 
 @Mod(value = HunterMod.MOD_ID)
@@ -28,28 +27,33 @@ public class HunterMod
 	
     public HunterMod()
     {
-    	ModLoadingContext.get().registerConfig(Type.SERVER, HunterModConfig.server_config);
+    	ModLoadingContext.get().registerConfig(Type.COMMON, HunterModConfig.COMMON_SPEC, "Huntermod.toml");
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(HunterModRenderInit::initialization);
-		
-		HunterModConfig.loadConfig(HunterModConfig.server_config, FMLPaths.CONFIGDIR.get().resolve("Huntermod.toml").toString());
     }
 	
 	//Will run at launch (preInit)
 	private void commonSetup(final FMLCommonSetupEvent event)
 	{
-		if (HunterConfig.remove_vegetal_decoration.get())
+		
+		if (DebugConfig.remove_vegetal_decoration.get())
 		{
 	        RemoveBiomeFeatures.removeVegetalDecoration();
 		}
 		
-		if (HunterConfig.glowing_hunters.get())
+		if (DebugConfig.glowing_hunters.get())
 		{
 			MinecraftForge.EVENT_BUS.register(new GlowingHunterEvent());
 		}
 		
-        //MinecraftForge.EVENT_BUS.register(new ReplaceSkeletonEvent());
+		/*
+		if (ReplaceSkeletonsConfig.replace_skeletons.get())
+		{
+			MinecraftForge.EVENT_BUS.register(new ReplaceSkeletonsEvent());
+		}
+		*/
+
 		logger.info("Setup method registered.");
 	}
     

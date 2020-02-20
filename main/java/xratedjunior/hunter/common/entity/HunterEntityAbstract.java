@@ -10,6 +10,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -43,11 +44,15 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import xratedjunior.hunter.common.entity.ai.attribute.HunterModCreatureAttribute;
 import xratedjunior.hunter.common.entity.projectile.HunterArrowEntity;
+import xratedjunior.hunter.configuration.HunterConfig;
 
 public abstract class HunterEntityAbstract extends MonsterEntity implements IRangedAttackMob {
 private final RangedBowAttackGoal<HunterEntityAbstract> bowGoal = new RangedBowAttackGoal<>(this, 1.0D, 20, 15.0F);
@@ -100,8 +105,8 @@ private final RangedBowAttackGoal<HunterEntityAbstract> bowGoal = new RangedBowA
 
    protected abstract SoundEvent getStepSound();
 
-   public CreatureAttribute getMobType() {
-      return CreatureAttribute.UNDEFINED;
+   public CreatureAttribute getCreatureAttribute() {
+      return HunterModCreatureAttribute.HUNTER;
    }
 
    /**
@@ -122,6 +127,7 @@ private final RangedBowAttackGoal<HunterEntityAbstract> bowGoal = new RangedBowA
    protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
       super.setEquipmentBasedOnDifficulty(difficulty);
       this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(minecraftBow));
+	  this.getItemStackFromSlot(EquipmentSlotType.MAINHAND).setDisplayName(new TranslationTextComponent("equipment.huntermod.hunter_bow").applyTextStyle(TextFormatting.GREEN));
    }
 
    /**
@@ -138,9 +144,11 @@ private final RangedBowAttackGoal<HunterEntityAbstract> bowGoal = new RangedBowA
    public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
       spawnDataIn = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
       this.setEquipmentBasedOnDifficulty(difficultyIn);
-      this.setEnchantmentBow();
       this.setEnchantmentBasedOnDifficulty(difficultyIn);
+      this.setEnchantmentBow();
       this.setCombatTask();
+      float armorDropChance = ((float) HunterConfig.hunter_bow_drop_chance.get() / 100);
+      this.setDropChance(EquipmentSlotType.MAINHAND, armorDropChance);
       this.setCanPickUpLoot(this.rand.nextFloat() < 0.55F * difficultyIn.getClampedAdditionalDifficulty());
       if (this.getItemStackFromSlot(EquipmentSlotType.HEAD).isEmpty()) {
          LocalDate localdate = LocalDate.now();
@@ -227,5 +235,18 @@ private final RangedBowAttackGoal<HunterEntityAbstract> bowGoal = new RangedBowA
     */
    public double getRidingHeight() {
       return -0.6D;
+   }
+   
+   /**
+    * Returns whether this Entity is on the same team as the given Entity.
+    */
+   public boolean isOnSameTeam(Entity entityIn) {
+      if (super.isOnSameTeam(entityIn)) {
+         return true;
+      } else if (entityIn instanceof LivingEntity && ((LivingEntity)entityIn).getCreatureAttribute() == HunterModCreatureAttribute.HUNTER) {
+         return this.getTeam() == null && entityIn.getTeam() == null;
+      } else {
+         return false;
+      }
    }
 }

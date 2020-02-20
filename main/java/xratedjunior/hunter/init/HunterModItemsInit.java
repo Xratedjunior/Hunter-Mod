@@ -22,10 +22,7 @@ public class HunterModItemsInit
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event)
-	{
-    	//Bow
-		//hunter_bow = registerItem(new BowItem((new Item.Properties()).tab(HUNTERTAB)), "hunter_bow"),
-		
+	{	
     	//Arrow
     	hunter_arrow = registerItem(new HunterArrowItem((new Item.Properties()).group(ItemGroup.COMBAT)), "hunter_arrow");
     	

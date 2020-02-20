@@ -1,6 +1,6 @@
 {
-	//Bow
-    "item.huntermod.hunter_bow": "Hunter's Bow",
+	//Mob Equipment
+    "equipment.huntermod.hunter_bow": "Hunter's Bow",
 	
 	//Arrows
 	"item.huntermod.hunter_arrow": "Hunter's Arrow",
@@ -12,5 +12,11 @@
 	"item.huntermod.hunter_spawn_egg": "Hunter Spawn Egg",
 
 	//ItemGroups
-	"itemGroup.huntermod": "Better Default Biomes"
+	"itemGroup.huntermod": "Better Default Biomes",
+	
+	//Advancements
+	"advancements.huntermod.killed_by_hunter.title": "The Hunted",
+	"advancements.huntermod.killed_by_hunter.description": "Be killed by a Hunter.",
+	"advancements.huntermod.shoot_a_hunter.title": "The Hunter",
+	"advancements.huntermod.shoot_a_hunter.description": "Shoot and kill a Hunter."
 }
