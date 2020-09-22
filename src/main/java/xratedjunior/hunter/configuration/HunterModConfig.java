@@ -8,7 +8,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.config.ModConfig;
-import xratedjunior.hunter.api.entity.HunterModSpawns;
 import xratedjunior.hunter.core.HunterMod;
 
 @Mod.EventBusSubscriber(modid = HunterMod.MOD_ID, bus = Bus.MOD)
@@ -38,8 +37,8 @@ public class HunterModConfig
 	
     @SubscribeEvent
     public static void onLoad(final ModConfig.Loading configEvent) {
-    	logger.info("Registering Hunter World Spawns");
-    	HunterModSpawns.registerEntityWorldSpawn();
+    	//logger.info("Registering Hunter World Spawns");
+    	//HunterModSpawns.registerEntityWorldSpawns();
 		logger.info("Loaded Huntermod Config");
     }
 
