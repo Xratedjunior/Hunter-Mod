@@ -1,0 +1,19 @@
+modLoader="javafml"
+loaderVersion="[32,)"
+license="All rights reserved"
+
+[[mods]]
+    modId="huntermod"
+    version="1.0.4"
+    displayName="Hunter Mod"
+	authors="Xrated_junior"
+    description='''
+    This mod adds a Hunter mob.
+    '''
+    
+[[dependencies.huntermod]]
+    modId="forge"
+    mandatory=true
+    versionRange="[32,)"
+    ordering="NONE"
+    side="BOTH"
