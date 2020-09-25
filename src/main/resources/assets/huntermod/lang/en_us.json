@@ -2,6 +2,10 @@
 	//Mob Equipment
     "equipment.huntermod.hunter_bow": "Hunter's Bow",
 	
+	//Item Tooltips
+	"tooltip.huntermod.hold_shift": "Hold shift for more information.",
+	"tooltip.huntermod.hunter_arrow": "This is a drop from the Hunter.",
+	
 	//Arrows
 	"item.huntermod.hunter_arrow": "Hunter's Arrow",
 	
