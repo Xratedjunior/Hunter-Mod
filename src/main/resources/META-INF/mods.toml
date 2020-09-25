@@ -3,7 +3,7 @@ loaderVersion="[31,)"
 
 [[mods]]
     modId="huntermod"
-    version="1.0.4"
+    version="1.0.5"
     displayName="Hunter Mod"
 	authors="Xrated_junior"
     description='''

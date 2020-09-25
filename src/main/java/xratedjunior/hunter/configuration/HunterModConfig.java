@@ -39,7 +39,7 @@ public class HunterModConfig
     @SubscribeEvent
     public static void onLoad(final ModConfig.Loading configEvent) {
     	logger.info("Registering Hunter World Spawns");
-    	HunterModSpawns.registerEntityWorldSpawns();
+    	HunterModSpawns.registerEntityWorldSpawn();
 		logger.info("Loaded Huntermod Config");
     }
 

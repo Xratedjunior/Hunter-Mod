@@ -1,25 +1,35 @@
 package xratedjunior.hunter.api.entity;
 
+import org.apache.logging.log4j.Logger;
+
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
-import net.minecraft.world.biome.Biomes;
+import net.minecraftforge.registries.ForgeRegistries;
+import xratedjunior.hunter.common.util.SpawnUtils;
+import xratedjunior.hunter.configuration.DebugConfig;
 import xratedjunior.hunter.configuration.HunterConfig;
+import xratedjunior.hunter.core.HunterMod;
 
 public class HunterModSpawns 
 {
-	public static void registerEntityWorldSpawns()
-	{
-		registerEntityWorldSpawn(HunterModEntityTypes.HUNTER_ENTITY, Biomes.BAMBOO_JUNGLE, Biomes.BAMBOO_JUNGLE_HILLS, Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MODIFIED_JUNGLE, Biomes.MODIFIED_JUNGLE_EDGE);
-	}
+    private static Logger logger = HunterMod.logger;
 	
-	public static void registerEntityWorldSpawn(EntityType<?> entity, Biome...biomes)
+	public static void registerEntityWorldSpawn()
 	{
-		for(Biome biome : biomes)
+		for(Biome biome : ForgeRegistries.BIOMES)
 		{
 			if(biome != null)
 			{
-				biome.getSpawns(entity.getClassification()).add(new SpawnListEntry(HunterModEntityTypes.HUNTER_ENTITY, HunterConfig.hunter_weight.get(), HunterConfig.hunter_min_group.get(), HunterConfig.hunter_max_group.get()));
+				EntityType<?> hunter = HunterModEntityTypes.HUNTER_ENTITY;
+				if(SpawnUtils.isSpawnBiomeOrType(biome, HunterConfig.spawn_biomes.get(), hunter) && HunterConfig.hunter_weight.get() > 0)
+				{
+					biome.getSpawns(hunter.getClassification()).add(new SpawnListEntry(hunter, HunterConfig.hunter_weight.get(), HunterConfig.hunter_min_group.get(), HunterConfig.hunter_max_group.get()));
+					if(DebugConfig.spawn_logger.get()) {
+						logger.info(hunter.getName().getFormattedText().replace("entity.huntermod.", "").toUpperCase() + " Spawns in: " + biome.getRegistryName().toString());
+						logger.info("Weight: " + HunterConfig.hunter_weight.get() + ", Min Group: " + HunterConfig.hunter_min_group.get() + ", Max Group: " + HunterConfig.hunter_max_group.get());
+					}
+				}
 			}
 		}
 	}
