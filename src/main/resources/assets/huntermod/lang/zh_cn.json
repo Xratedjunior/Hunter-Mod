@@ -1,0 +1,26 @@
+{
+	//Mob Equipment
+    "equipment.huntermod.hunter_bow": "猎手之弓",
+	
+	//Item Tooltips
+	"tooltip.huntermod.hold_shift": "按住shift获取更多信息。",
+	"tooltip.huntermod.hunter_arrow": "这是猎手的一种掉落物。",
+	
+	//Arrows
+	"item.huntermod.hunter_arrow": "猎手之箭",
+	
+	//Entity
+	"entity.huntermod.hunter_entity": "猎手",
+	
+	//Entity Spawn Eggs
+	"item.huntermod.hunter_spawn_egg": "猎手刷怪蛋",
+
+	//ItemGroups
+	"itemGroup.huntermod": "更好的默认生物群系",
+	
+	//Advancements
+	"advancements.huntermod.killed_by_hunter.title": "猎物",
+	"advancements.huntermod.killed_by_hunter.description": "被一位猎手杀死。",
+	"advancements.huntermod.shoot_a_hunter.title": "猎手",
+	"advancements.huntermod.shoot_a_hunter.description": "射击并杀死一位猎人。"
+}
